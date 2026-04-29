@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موسوعة مهارات التدريس الفعال</title>
+    <!-- خطوط عربية أصيلة -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Tajawal:wght@500;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f8fafc;
+            scroll-behavior: smooth;
+        }
+
+        .header-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        }
+
+        /* تصميم الدوائر التفاعلية */
+        .skill-circle {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: white;
+            border: 3px solid #d4af37;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .skill-circle.active {
+            transform: scale(1.15);
+            background: #d4af37;
+            color: white;
+            border-color: #1e3a8a;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+        }
+
+        .skill-circle i {
+            font-size: 1.8rem;
+        }
+
+        .skill-label {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            color: #1e3a8a;
+            text-align: center;
+            width: 110px;
+            line-height: 1.2;
+        }
+
+        .active + .skill-label {
+            color: #d4af37;
+        }
+
+        /* حاوية عرض المحتوى */
+        #display-area {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-out;
+        }
+
+        #display-area.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glass-box {
+            background: white;
+            border-radius: 2rem;
+            border: 1px solid rgba(30, 58, 138, 0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+        }
+
+        /* تحسينات الصورة التفاعلية */
+        .skill-image-container {
+            position: relative;
+            cursor: zoom-in;
+            overflow: hidden;
+            border-radius: 1rem;
+            border: 2px solid #e2e8f0;
+        }
+
+        .skill-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Lightbox - نافذة التكبير */
+        #lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            border: 4px solid white;
+            border-radius: 4px;
+        }
+
+        @media (min-width: 1024px) {
+            .circles-container::before {
+                content: '';
+                position: absolute;
+                top: 45px;
+                left: 10%;
+                right: 10%;
+                height: 2px;
+                background: #e2e8f0;
+                z-index: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header-gradient text-white py-10 px-6 text-center shadow-lg">
+        <div class="container mx-auto flex flex-col items-center">
+            <div class="flex gap-6 mb-6">
+                <img src="https://i.postimg.cc/Ls4HH5sG/logonew.png" alt="شعار كلية التربية النوعية" class="h-20 md:h-24 drop-shadow-lg">
+                <img src="https://i.postimg.cc/s2fVVx2T/shʿar-jamʿt-almnya-(1).png" alt="شعار جامعة المنيا" class="h-20 md:h-24 drop-shadow-lg">
+            </div>
+            <h1 class="text-3xl md:text-5xl font-extrabold mb-4" style="font-family: 'Tajawal', sans-serif;">موسوعة مهارات التدريس الفعال</h1>
+            <p class="text-lg md:text-xl opacity-90 max-w-2xl font-light">مشروع جامعي متكامل لاستعراض وتحليل كفايات المعلم العصرية</p>
+        </div>
+    </header>
+
+    <!-- Skills Selection -->
+    <main class="container mx-auto py-12 px-4">
+        <h2 class="text-2xl font-bold text-center text-blue-900 mb-10 italic">اختر المهارة لاستعراض المحتوى</h2>
+        
+        <div class="circles-container flex flex-wrap justify-center gap-8 md:gap-12 mb-12">
+            
+            <div class="flex flex-col items-center">
+                <div class="skill-circle" onclick="showSkill(0, this)">
+                    <i class="fas fa-door-open"></i>
+                </div>
+                <span class="skill-label">مهارة التهيئة</span>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <div class="skill-circle" onclick="showSkill(1, this)">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <span class="skill-label">مهارة التساؤل</span>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <div class="skill-circle" onclick="showSkill(2, this)">
+                    <i class="fas fa-award"></i>
+                </div>
+                <span class="skill-label">مهارة التعزيز</span>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <div class="skill-circle" onclick="showSkill(3, this)">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <span class="skill-label">إثارة الدافعية</span>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <div class="skill-circle" onclick="showSkill(4, this)">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <span class="skill-label">تنوع المثيرات</span>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <div class="skill-circle" onclick="showSkill(5, this)">
+                    <i class="fas fa-users-cog"></i>
+                </div>
+                <span class="skill-label">إدارة الفصل</span>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <div class="skill-circle" onclick="showSkill(6, this)">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <span class="skill-label">التفاعل اللفظي</span>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <div class="skill-circle" onclick="showSkill(7, this)">
+                    <i class="fas fa-check-double"></i>
+                </div>
+                <span class="skill-label">مهارة الغلق</span>
+            </div>
+        </div>
+
+        <!-- Display Content Area -->
+        <div id="display-area" class="max-w-6xl mx-auto">
+            <div class="glass-box p-6 md:p-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+                    <div>
+                        <h3 id="display-title" class="text-3xl font-bold text-blue-900 mb-6 border-r-8 border-gold-500 pr-4 leading-tight"></h3>
+                        <div id="display-description" class="text-gray-700 leading-relaxed text-lg space-y-4 text-justify">
+                            <!-- المحتوى -->
+                        </div>
+                        <div class="mt-8 p-4 bg-blue-50 rounded-xl border-r-4 border-blue-500 text-sm">
+                            <i class="fas fa-info-circle ml-2"></i> اضغط على الصورة المقابلة لعرضها بحجم الشاشة الكامل لتفاصيل أوضح.
+                        </div>
+                    </div>
+                    <div class="flex justify-center">
+                        <div class="skill-image-container" onclick="zoomImage()">
+                            <img id="display-img" src="" alt="صورة المهارة" class="skill-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="صورة مكبرة">
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-6 mt-20 border-t-4 border-[#d4af37]">
+        <div class="container mx-auto text-center">
+            <div class="flex justify-center gap-10 mb-8 items-center">
+                <img src="https://i.postimg.cc/Ls4HH5sG/logonew.png" alt="كلية التربية النوعية" class="h-20 opacity-90">
+                <div class="h-16 w-px bg-gray-700"></div>
+                <img src="https://i.postimg.cc/s2fVVx2T/shʿar-jamʿt-almnya-(1).png" alt="جامعة المنيا" class="h-20 opacity-90">
+            </div>
+            <p class="text-2xl font-bold mb-3 text-[#d4af37]">موسوعة مهارات التدريس الفعال</p>
+            <p class="max-w-2xl mx-auto text-gray-400 mb-8 leading-relaxed">
+                هذا المشروع يهدف إلى تمكين معلمي المستقبل من إتقان الكفايات التدريسية الأساسية لتحقيق نواتج تعلم متميزة وبناء شخصية المتعلم.
+            </p>
+            <div class="pt-8 border-t border-gray-800">
+                <p class="text-sm text-gray-500">جميع الحقوق محفوظة &copy; 2026 | كلية التربية النوعية - جامعة المنيا</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // مصفوفة البيانات مرتبة حسب الصور المطلوبة بدقة
+        const skillsData = [
+            {
+                title: "مهارة التهيئة",
+                description: "<p>هي مهارة افتتاح الدرس وجذب انتباه الطلاب للموضوع الجديد. تهدف إلى ربط المعلومات السابقة بالجديدة وإثارة الشوق لدى المتعلمين.</p><ul class='list-disc pr-6 space-y-2 font-bold text-blue-700'><li>تهيئة توجيهية: لتركيز انتباه الطلاب.</li><li>تهيئة انتقالية: للانتقال السلس بين الأفكار.</li><li>تهيئة تقويمية: لمعرفة الرصيد المعرفي السابق.</li></ul>",
+                img: "https://i.postimg.cc/yxGJR9Dg/20260429-201935-0001.png" // التهيئة
+            },
+            {
+                title: "مهارة التساؤل",
+                description: "<p>فن صياغة وتوجيه الأسئلة الصفية. لا يقتصر الهدف على اختبار الذاكرة بل يتعداه إلى تنمية التفكير الناقد والإبداعي من خلال أسئلة السبر والتحليل.</p>",
+                img: "https://i.postimg.cc/br5GnbZz/20260429-201937-0006.png" // التساؤل
+            },
+            {
+                title: "مهارة التعزيز",
+                description: "<p>استخدام المعززات الإيجابية (لفظية أو مادية) لتشجيع السلوك المرغوب فيه. يعزز من ثقة الطالب بنفسه ويشجع المشاركة النشطة داخل الفصل.</p>",
+                img: "https://i.postimg.cc/T1sybmK2/20260429-201936-0004.png" // التعزيز
+            },
+            {
+                title: "مهارة إثارة الدافعية",
+                description: "<p>القدرة على جعل الطالب راغباً في التعلم من خلال ربط المادة بحياته اليومية، واستخدام أساليب مشوقة تمنع الملل وتزيد من معدل الاستيعاب.</p>",
+                img: "https://i.postimg.cc/D0NWGsSy/20260429-201936-0005.png" // الدافعية
+            },
+            {
+                title: "مهارة تنوع المثيرات",
+                description: "<p>تجنب الرتابة في التدريس من خلال تغيير نبرة الصوت، الحركات الجسدية الموزونة، تغيير زوايا النظر، واستخدام الوسائط السمعية والبصرية بذكاء.</p>",
+                img: "https://i.postimg.cc/KjWKTL1h/20260429-201937-0007.png" // تنويع المثيرات
+            },
+            {
+                title: "مهارة إدارة الفصل",
+                description: "<p>فن القيادة داخل الصف؛ تشمل تنظيم وقت الحصة، توزيع المهام، والتعامل بحكمة وحزم مع المشكلات السلوكية لخلق بيئة تعلم آمنة ومنتجة.</p>",
+                img: "https://i.postimg.cc/C52Z8DRZ/20260429-201935-0002.png" // إدارة الفصل
+            },
+            {
+                title: "تحليل التفاعل اللفظي",
+                description: "<p>مراقبة تدفق الكلام داخل الفصل وتصنيفه (كلام المعلم، كلام الطالب، الصمت). يهدف إلى تقليل سيطرة المعلم اللفظية وزيادة فرصة الطالب في التعبير والاستنتاج.</p>",
+                img: "https://i.postimg.cc/zvQLhWyR/20260429-201935-0000.png" // التفاعل اللفظي
+            },
+            {
+                title: "مهارة الغلق",
+                description: "<p>الختام الفعال للحصة؛ حيث يقوم المعلم بتلخيص النقاط الأساسية، والتأكد من تحقيق الأهداف، وربط ما تم تعلمه بالدروس القادمة.</p>",
+                img: "https://i.postimg.cc/VvhStMJv/20260429-201936-0003.png" // مهارة الغلق
+            }
+        ];
+
+        function showSkill(index, element) {
+            document.querySelectorAll('.skill-circle').forEach(circle => circle.classList.remove('active'));
+            element.classList.add('active');
+
+            const area = document.getElementById('display-area');
+            const title = document.getElementById('display-title');
+            const desc = document.getElementById('display-description');
+            const img = document.getElementById('display-img');
+
+            area.classList.remove('show');
+            
+            setTimeout(() => {
+                const data = skillsData[index];
+                title.innerText = data.title;
+                desc.innerHTML = data.description;
+                img.src = data.img;
+                area.classList.add('show');
+                
+                // التمرير لمكان العرض بشكل سلس
+                const offset = area.offsetTop - 100;
+                window.scrollTo({ top: offset, behavior: 'smooth' });
+            }, 300);
+        }
+
+        function zoomImage() {
+            const currentImgSrc = document.getElementById('display-img').src;
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            
+            lightboxImg.src = currentImgSrc;
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // تشغيل أول مهارة تلقائياً
+        window.onload = () => {
+            showSkill(0, document.querySelector('.skill-circle'));
+        };
+    </script>
+</body>
+</html>
