@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موسوعة مهارات التدريس الفعال</title>
+    <title>موسوعة مهارات التدريس المصغر</title>
     <!-- خطوط عربية أصيلة -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Tajawal:wght@500;800&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
@@ -46,6 +47,15 @@
             box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
         }
 
+        .vision-circle {
+            border-color: #1e3a8a;
+            background: #f0f7ff;
+        }
+        .vision-circle.active {
+            background: #1e3a8a;
+            border-color: #d4af37;
+        }
+
         .skill-circle i {
             font-size: 1.8rem;
         }
@@ -64,7 +74,6 @@
             color: #d4af37;
         }
 
-        /* حاوية عرض المحتوى */
         #display-area {
             display: none;
             opacity: 0;
@@ -85,22 +94,28 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.08);
         }
 
-        /* تحسينات الصورة التفاعلية */
         .skill-image-container {
             position: relative;
             cursor: zoom-in;
             overflow: hidden;
             border-radius: 1rem;
             border: 2px solid #e2e8f0;
+            background: #fff;
+            transition: transform 0.3s ease;
+        }
+        
+        .skill-image-container:hover {
+            transform: scale(1.02);
+            border-color: #d4af37;
         }
 
         .skill-image {
-            max-width: 100%;
+            width: 100%;
             height: auto;
             display: block;
+            object-fit: contain;
         }
 
-        /* Lightbox - نافذة التكبير */
         #lightbox {
             display: none;
             position: fixed;
@@ -122,6 +137,17 @@
             border-radius: 4px;
         }
 
+        .vision-text {
+            border-right: 4px solid #1e3a8a;
+            padding-right: 15px;
+            margin-bottom: 20px;
+        }
+
+        .mission-text {
+            border-right: 4px solid #d4af37;
+            padding-right: 15px;
+        }
+
         @media (min-width: 1024px) {
             .circles-container::before {
                 content: '';
@@ -139,72 +165,72 @@
 <body>
 
     <!-- Header -->
-    <header class="header-gradient text-white py-10 px-6 text-center shadow-lg">
+    <header class="header-gradient text-white py-12 px-6 text-center shadow-lg">
         <div class="container mx-auto flex flex-col items-center">
-            <div class="flex gap-6 mb-6">
+            <div class="flex flex-wrap justify-center items-center gap-10 mb-8">
                 <img src="https://i.postimg.cc/Ls4HH5sG/logonew.png" alt="شعار كلية التربية النوعية" class="h-20 md:h-24 drop-shadow-lg">
                 <img src="https://i.postimg.cc/s2fVVx2T/shʿar-jamʿt-almnya-(1).png" alt="شعار جامعة المنيا" class="h-20 md:h-24 drop-shadow-lg">
             </div>
-            <h1 class="text-3xl md:text-5xl font-extrabold mb-4" style="font-family: 'Tajawal', sans-serif;">موسوعة مهارات التدريس الفعال</h1>
-            <p class="text-lg md:text-xl opacity-90 max-w-2xl font-light">مشروع جامعي متكامل لاستعراض وتحليل كفايات المعلم العصرية</p>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4" style="font-family: 'Tajawal', sans-serif;">موسوعة مهارات التدريس المصغر</h1>
+            <p class="text-lg md:text-xl opacity-80 max-w-2xl font-light italic">استعراض وتحليل كفايات المعلم في ضوء مستجدات العصر الرقمي</p>
         </div>
     </header>
 
     <!-- Skills Selection -->
     <main class="container mx-auto py-12 px-4">
-        <h2 class="text-2xl font-bold text-center text-blue-900 mb-10 italic">اختر المهارة لاستعراض المحتوى</h2>
+        <h2 class="text-2xl font-bold text-center text-blue-900 mb-10 italic">اختر المهارة أو القسم لاستعراض المحتوى</h2>
         
         <div class="circles-container flex flex-wrap justify-center gap-8 md:gap-12 mb-12">
-            
+            <!-- الدائرة الأولى: الرؤية والرسالة -->
+            <div class="flex flex-col items-center">
+                <div id="vision-btn" class="skill-circle vision-circle" onclick="showSkill(8, this)">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <span class="skill-label">الرؤية والرسالة</span>
+            </div>
+
             <div class="flex flex-col items-center">
                 <div class="skill-circle" onclick="showSkill(0, this)">
                     <i class="fas fa-door-open"></i>
                 </div>
                 <span class="skill-label">مهارة التهيئة</span>
             </div>
-
             <div class="flex flex-col items-center">
                 <div class="skill-circle" onclick="showSkill(1, this)">
                     <i class="fas fa-question-circle"></i>
                 </div>
                 <span class="skill-label">مهارة التساؤل</span>
             </div>
-
             <div class="flex flex-col items-center">
                 <div class="skill-circle" onclick="showSkill(2, this)">
                     <i class="fas fa-award"></i>
                 </div>
                 <span class="skill-label">مهارة التعزيز</span>
             </div>
-
             <div class="flex flex-col items-center">
                 <div class="skill-circle" onclick="showSkill(3, this)">
                     <i class="fas fa-bolt"></i>
                 </div>
                 <span class="skill-label">إثارة الدافعية</span>
             </div>
-
             <div class="flex flex-col items-center">
                 <div class="skill-circle" onclick="showSkill(4, this)">
                     <i class="fas fa-magic"></i>
                 </div>
                 <span class="skill-label">تنوع المثيرات</span>
             </div>
-
             <div class="flex flex-col items-center">
                 <div class="skill-circle" onclick="showSkill(5, this)">
                     <i class="fas fa-users-cog"></i>
                 </div>
                 <span class="skill-label">إدارة الفصل</span>
             </div>
-
             <div class="flex flex-col items-center">
                 <div class="skill-circle" onclick="showSkill(6, this)">
                     <i class="fas fa-comments"></i>
                 </div>
                 <span class="skill-label">التفاعل اللفظي</span>
             </div>
-
             <div class="flex flex-col items-center">
                 <div class="skill-circle" onclick="showSkill(7, this)">
                     <i class="fas fa-check-double"></i>
@@ -219,17 +245,11 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
                     <div>
                         <h3 id="display-title" class="text-3xl font-bold text-blue-900 mb-6 border-r-8 border-gold-500 pr-4 leading-tight"></h3>
-                        <div id="display-description" class="text-gray-700 leading-relaxed text-lg space-y-4 text-justify">
-                            <!-- المحتوى -->
-                        </div>
-                        <div class="mt-8 p-4 bg-blue-50 rounded-xl border-r-4 border-blue-500 text-sm">
-                            <i class="fas fa-info-circle ml-2"></i> اضغط على الصورة المقابلة لعرضها بحجم الشاشة الكامل لتفاصيل أوضح.
-                        </div>
+                        <div id="display-description" class="text-gray-700 leading-relaxed text-lg space-y-4 text-justify"></div>
                     </div>
-                    <div class="flex justify-center">
-                        <div class="skill-image-container" onclick="zoomImage()">
-                            <img id="display-img" src="" alt="صورة المهارة" class="skill-image">
-                        </div>
+                    <!-- الصور -->
+                    <div id="images-container" class="grid grid-cols-1 gap-6">
+                        <!-- الصور تضاف هنا بواسطة JS -->
                     </div>
                 </div>
             </div>
@@ -249,58 +269,143 @@
                 <div class="h-16 w-px bg-gray-700"></div>
                 <img src="https://i.postimg.cc/s2fVVx2T/shʿar-jamʿt-almnya-(1).png" alt="جامعة المنيا" class="h-20 opacity-90">
             </div>
-            <p class="text-2xl font-bold mb-3 text-[#d4af37]">موسوعة مهارات التدريس الفعال</p>
-            <p class="max-w-2xl mx-auto text-gray-400 mb-8 leading-relaxed">
-                هذا المشروع يهدف إلى تمكين معلمي المستقبل من إتقان الكفايات التدريسية الأساسية لتحقيق نواتج تعلم متميزة وبناء شخصية المتعلم.
-            </p>
+            
+            <p class="text-2xl font-bold mb-6 text-[#d4af37]">موسوعة مهارات التدريس المصغر</p>
+            
             <div class="pt-8 border-t border-gray-800">
-                <p class="text-sm text-gray-500">جميع الحقوق محفوظة &copy; 2026 | كلية التربية النوعية - جامعة المنيا</p>
+                <p class="text-sm md:text-base font-medium text-gray-300">
+                    إعداد: <span class="text-white font-bold">Salma Ahmed Sohaib</span> &copy; 2026 | 
+                    <span class="text-gold-500">قسم تكنولوجيا التعليم - الفرقة الثانية</span> | 
+                    كلية التربية النوعية - جامعة المنيا
+                </p>
             </div>
         </div>
     </footer>
 
     <script>
-        // مصفوفة البيانات مرتبة حسب الصور المطلوبة بدقة
         const skillsData = [
             {
                 title: "مهارة التهيئة",
-                description: "<p>هي مهارة افتتاح الدرس وجذب انتباه الطلاب للموضوع الجديد. تهدف إلى ربط المعلومات السابقة بالجديدة وإثارة الشوق لدى المتعلمين.</p><ul class='list-disc pr-6 space-y-2 font-bold text-blue-700'><li>تهيئة توجيهية: لتركيز انتباه الطلاب.</li><li>تهيئة انتقالية: للانتقال السلس بين الأفكار.</li><li>تهيئة تقويمية: لمعرفة الرصيد المعرفي السابق.</li></ul>",
-                img: "https://i.postimg.cc/yxGJR9Dg/20260429-201935-0001.png" // التهيئة
+                description: `
+                    <p>هي مهارة افتتاح الدرس وجذب انتباه الطلاب للموضوع الجديد. تهدف إلى ربط المعلومات السابقة بالجديدة وإثارة الشوق لدى المتعلمين.</p>
+                    <ul class='list-disc pr-6 space-y-2 font-bold text-blue-700'>
+                        <li>تهيئة توجيهية: لتركيز انتباه الطلاب بشكل مباشر.</li>
+                        <li>تهيئة انتقالية: للانتقال السلس والمنطقي بين الأفكار.</li>
+                        <li>تهيئة تقويمية: لمعرفة الرصيد المعرفي السابق ومدى الاستعداد.</li>
+                    </ul>`,
+                images: [
+                    "https://i.postimg.cc/5tG11HWH/slmy-ahmd-shyb-1.jpg",
+                    "https://i.postimg.cc/GtxZBtVF/1778251917824.png"
+                ]
             },
             {
                 title: "مهارة التساؤل",
-                description: "<p>فن صياغة وتوجيه الأسئلة الصفية. لا يقتصر الهدف على اختبار الذاكرة بل يتعداه إلى تنمية التفكير الناقد والإبداعي من خلال أسئلة السبر والتحليل.</p>",
-                img: "https://i.postimg.cc/br5GnbZz/20260429-201937-0006.png" // التساؤل
+                description: `
+                    <p>فن صياغة وتوجيه الأسئلة الصفية بفاعلية. لا يقتصر الهدف على اختبار الذاكرة بل يتعداه إلى تنمية التفكير الناقد والإبداعي.</p>
+                    <ul class='list-disc pr-6 space-y-2 font-bold text-blue-700'>
+                        <li>أسئلة التفكير: لإثارة مستويات العقل العليا.</li>
+                        <li>توزيع الأسئلة: لضمان مشاركة جميع الطلاب بعدل.</li>
+                        <li>زمن الانتظار: لإعطاء فرصة كافية لبلورة الإجابة.</li>
+                    </ul>`,
+                images: [
+                    "https://i.postimg.cc/XJ0Hw3fn/slmy-ahmd-shyb-5.jpg",
+                    "https://i.postimg.cc/T3FH3nhM/1778251516546.png"
+                ]
             },
             {
                 title: "مهارة التعزيز",
-                description: "<p>استخدام المعززات الإيجابية (لفظية أو مادية) لتشجيع السلوك المرغوب فيه. يعزز من ثقة الطالب بنفسه ويشجع المشاركة النشطة داخل الفصل.</p>",
-                img: "https://i.postimg.cc/T1sybmK2/20260429-201936-0004.png" // التعزيز
+                description: `
+                    <p>استخدام المعززات الإيجابية لتشجيع السلوك المرغوب فيه. يعزز من ثقة الطالب بنفسه ويخلق بيئة تفاعلية محفزة.</p>
+                    <ul class='list-disc pr-6 space-y-2 font-bold text-blue-700'>
+                        <li>تعزيز لفظي: مثل كلمات المدح والثناء.</li>
+                        <li>تعزيز غير لفظي: مثل الابتسامة والإيماءات المشجعة.</li>
+                        <li>تعزيز مادي: مثل الدرجات أو المكافآت الرمزية.</li>
+                    </ul>`,
+                images: [
+                    "https://i.postimg.cc/bwLTMkfh/file-00000000636871f4bcabb25c8b768d16.png"
+                ]
             },
             {
                 title: "مهارة إثارة الدافعية",
-                description: "<p>القدرة على جعل الطالب راغباً في التعلم من خلال ربط المادة بحياته اليومية، واستخدام أساليب مشوقة تمنع الملل وتزيد من معدل الاستيعاب.</p>",
-                img: "https://i.postimg.cc/D0NWGsSy/20260429-201936-0005.png" // الدافعية
+                description: `
+                    <p>القدرة على جعل الطالب راغباً في التعلم بشكل ذاتي من خلال ربط المادة بحياته وتطلعاته، مما يزيد من معدل الاستيعاب.</p>
+                    <ul class='list-disc pr-6 space-y-2 font-bold text-blue-700'>
+                        <li>ربط الواقع: ربط الدرس بمواقف حياتية ملموسة.</li>
+                        <li>التشويق: استخدام الألغاز أو التحديات الذهنية.</li>
+                        <li>النجاح المبكر: تعريض الطالب لمهام ينجح فيها ليزداد حماساً.</li>
+                    </ul>`,
+                images: [
+                    "https://i.postimg.cc/xTDtb93Z/skshn-8-jrwb-slmy-ahmd-shyb-tklyf-d-hajr-tdrys-msghr-2-3.jpg"
+                ]
             },
             {
                 title: "مهارة تنوع المثيرات",
-                description: "<p>تجنب الرتابة في التدريس من خلال تغيير نبرة الصوت، الحركات الجسدية الموزونة، تغيير زوايا النظر، واستخدام الوسائط السمعية والبصرية بذكاء.</p>",
-                img: "https://i.postimg.cc/KjWKTL1h/20260429-201937-0007.png" // تنويع المثيرات
+                description: `
+                    <p>تجنب الرتابة والملل في التدريس من خلال التغيير المستهدف في الوسائل والأساليب لجذب الانتباه طوال وقت الحصة.</p>
+                    <ul class='list-disc pr-6 space-y-2 font-bold text-blue-700'>
+                        <li>تنوع حركي: التنقل المدروس داخل الفصل.</li>
+                        <li>تنوع حسي: استخدام البصر والسمع واللمس.</li>
+                        <li>تنوع التفاعل: التبديل بين الشرح والمناقشة والعمل الجماعي.</li>
+                    </ul>`,
+                images: [
+                    "https://i.postimg.cc/RZD2JjpS/slmy-ahmd-shyb-6.jpg"
+                ]
             },
             {
                 title: "مهارة إدارة الفصل",
-                description: "<p>فن القيادة داخل الصف؛ تشمل تنظيم وقت الحصة، توزيع المهام، والتعامل بحكمة وحزم مع المشكلات السلوكية لخلق بيئة تعلم آمنة ومنتجة.</p>",
-                img: "https://i.postimg.cc/C52Z8DRZ/20260429-201935-0002.png" // إدارة الفصل
+                description: `
+                    <p>فن القيادة والتنظيم داخل الصف؛ تشمل توفير المناخ الملائم للتعلم والتعامل الذكي مع الفروق الفردية والسلوكيات.</p>
+                    <ul class='list-disc pr-6 space-y-2 font-bold text-blue-700'>
+                        <li>تنظيم البيئة: ترتيب المقاعد والوسائل بفاعلية.</li>
+                        <li>إدارة الوقت: توزيع زمن الحصة بدقة بين الأنشطة.</li>
+                        <li>قواعد السلوك: وضع توقعات واضحة ومنصفة للجميع.</li>
+                    </ul>`,
+                images: [
+                    "https://i.postimg.cc/NfL42L36/slmy-ahmd-shyb-3.jpg",
+                    "https://i.postimg.cc/dtX92wFS/file-000000003ef471f49bcf49dbf8eec409.png"
+                ]
             },
             {
                 title: "تحليل التفاعل اللفظي",
-                description: "<p>مراقبة تدفق الكلام داخل الفصل وتصنيفه (كلام المعلم، كلام الطالب، الصمت). يهدف إلى تقليل سيطرة المعلم اللفظية وزيادة فرصة الطالب في التعبير والاستنتاج.</p>",
-                img: "https://i.postimg.cc/zvQLhWyR/20260429-201935-0000.png" // التفاعل اللفظي
+                description: `
+                    <p>مراقبة وتحليل تدفق الكلام داخل الفصل وتصنيفه لضمان عدم سيطرة المعلم اللفظية وإعطاء المساحة الكافية للمتعلم.</p>
+                    <ul class='list-disc pr-6 space-y-2 font-bold text-blue-700'>
+                        <li>كلام المعلم: الشرح، التوجيه، والنقد البناء.</li>
+                        <li>كلام الطالب: الاستجابة، المبادرة، والتساؤل.</li>
+                        <li>فترات الصمت: استغلالها للتفكير والتأمل العميق.</li>
+                    </ul>`,
+                images: [
+                    "https://i.postimg.cc/L6sykx1Z/slmy-ahmd-shyb-4.jpg",
+                    "https://i.postimg.cc/m26mm7Yh/1778255842915.png"
+                ]
             },
             {
                 title: "مهارة الغلق",
-                description: "<p>الختام الفعال للحصة؛ حيث يقوم المعلم بتلخيص النقاط الأساسية، والتأكد من تحقيق الأهداف، وربط ما تم تعلمه بالدروس القادمة.</p>",
-                img: "https://i.postimg.cc/VvhStMJv/20260429-201936-0003.png" // مهارة الغلق
+                description: `
+                    <p>الختام الفعال والمؤثر للحصة؛ حيث يتم بلورة الأفكار الأساسية والتأكد من وصول الرسالة التعليمية بشكل صحيح.</p>
+                    <ul class='list-disc pr-6 space-y-2 font-bold text-blue-700'>
+                        <li>غلق مراجعة: تلخيص سريع لأهم نقاط الدرس.</li>
+                        <li>غلق تطبيق: تمرين سريع يقيس مدى الاستيعاب.</li>
+                        <li>غلق تطلعي: ربط ما تم تعلمه بالدرس القادم للتشويق.</li>
+                    </ul>`,
+                images: [
+                    "https://i.postimg.cc/xTWKk5GZ/file-000000008a0c71f48639f08457107abf.png",
+                    "https://i.postimg.cc/851dpCdN/slmy-ahmd-shyb-2.jpg"
+                ]
+            },
+            {
+                title: "رؤية ورسالة قسم تكنولوجيا التعليم",
+                description: `
+                    <div class="vision-text">
+                        <h4 class="text-xl font-bold text-blue-900 mb-2">الرؤية:</h4>
+                        <p>تتمثل رؤية قسم تكنولوجيا التعليم في تحقيق الريادة والتميز محلياً وإقليمياً في إعداد بيئات التعلم الرقمية وتطوير التعليم الإلكتروني وفقاً لمعايير الجودة العالمية.</p>
+                    </div>
+                    <div class="mission-text">
+                        <h4 class="text-xl font-bold text-[#d4af37] mb-2">الرسالة:</h4>
+                        <p>تتركز رسالة القسم على إعداد كفاءات متخصصة ومبتكرة (معلمين وباحثين) قادرة على تصميم وإنتاج مصادر التعلم وتوظيف المستحدثات التكنولوجية.</p>
+                    </div>
+                `,
+                images: [] 
             }
         ];
 
@@ -311,7 +416,7 @@
             const area = document.getElementById('display-area');
             const title = document.getElementById('display-title');
             const desc = document.getElementById('display-description');
-            const img = document.getElementById('display-img');
+            const imgContainer = document.getElementById('images-container');
 
             area.classList.remove('show');
             
@@ -319,21 +424,39 @@
                 const data = skillsData[index];
                 title.innerText = data.title;
                 desc.innerHTML = data.description;
-                img.src = data.img;
-                area.classList.add('show');
                 
-                // التمرير لمكان العرض بشكل سلس
+                imgContainer.innerHTML = '';
+                if (data.images.length > 0) {
+                    data.images.forEach(imgSrc => {
+                        const div = document.createElement('div');
+                        div.className = 'skill-image-container';
+                        div.onclick = () => zoomImage(imgSrc);
+                        div.innerHTML = `<img src="${imgSrc}" alt="صورة المهارة" class="skill-image shadow-sm" loading="lazy">`;
+                        imgContainer.appendChild(div);
+                    });
+                } else {
+                    const logos = [
+                        "https://i.postimg.cc/Ls4HH5sG/logonew.png",
+                        "https://i.postimg.cc/s2fVVx2T/shʿar-jamʿt-almnya-(1).png"
+                    ];
+                    logos.forEach(logo => {
+                        const div = document.createElement('div');
+                        div.className = 'p-4 bg-gray-50 rounded-2xl flex justify-center items-center h-48';
+                        div.innerHTML = `<img src="${logo}" class="h-32 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">`;
+                        imgContainer.appendChild(div);
+                    });
+                }
+
+                area.classList.add('show');
                 const offset = area.offsetTop - 100;
                 window.scrollTo({ top: offset, behavior: 'smooth' });
             }, 300);
         }
 
-        function zoomImage() {
-            const currentImgSrc = document.getElementById('display-img').src;
+        function zoomImage(src) {
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightbox-img');
-            
-            lightboxImg.src = currentImgSrc;
+            lightboxImg.src = src;
             lightbox.style.display = 'flex';
             document.body.style.overflow = 'hidden'; 
         }
@@ -343,9 +466,10 @@
             document.body.style.overflow = 'auto';
         }
 
-        // تشغيل أول مهارة تلقائياً
         window.onload = () => {
-            showSkill(0, document.querySelector('.skill-circle'));
+            // البدء بالرؤية والرسالة (الفهرس 8 في المصفوفة)
+            const visionBtn = document.getElementById('vision-btn');
+            showSkill(8, visionBtn);
         };
     </script>
 </body>
